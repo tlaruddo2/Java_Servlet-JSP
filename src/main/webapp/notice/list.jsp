@@ -6,11 +6,11 @@
 		 pageEncoding="UTF-8" %>
 
 <%
-	String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
+	String url = "jdbc:mysql://localhost:3306/newlect";
 	String sql = "SELECT * FROM NOTICE";
 
-	Class.forName("oracle.jdbc.driver.OracleDriver");
-	Connection con = DriverManager.getConnection(url,"newlec","skdine");
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con = DriverManager.getConnection(url,"root","7789295951r");
 	Statement st = con.createStatement();
 	ResultSet rs = st. executeQuery(sql);
 %>
@@ -187,6 +187,11 @@
 						</tr>
 					</thead>
 					<tbody>
+					<%if (rs.next()){
+						System.out.println("SQL has");
+					}else {
+						System.out.println("SQL not");
+					}%>
 
 					<%while (rs.next()){%>
 
@@ -195,9 +200,9 @@
 						<td class="title indent text-align-left"><a href="detail.html"><%= rs.getString("TITLE")%>></a></td>
 						<td><%=rs.getString("WRITER_ID")%>></td>
 						<td>
-							<%=rs.getDate("REGDATE")%>
+							<%=rs.getString("REGDATE")%>
 						</td>
-						<td><%=rs.getInt("HIT")%></td>
+						<td><%=rs.getString("HIT")%></td>
 					</tr>
 
 					<%}%>
