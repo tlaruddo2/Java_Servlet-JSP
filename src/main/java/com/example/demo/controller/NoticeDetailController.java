@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Notice;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,16 +37,24 @@ public class NoticeDetailController extends HttpServlet {
             String content = rs.getString("CONTENT");
 
             //save model in request
+            /*
             request.setAttribute("title",title);
             request.setAttribute("date",date);
             request.setAttribute("writerID",writerID);
             request.setAttribute("hit",hit);
             request.setAttribute("files",files);
             request.setAttribute("content",content);
+            */
+
+            //entity
+            Notice notice = new Notice(
+                    id,title,date,writerID,hit,files,content);
+            request.setAttribute("n",notice);
 
             rs.close();
             st.close();
             con.close();
+
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
