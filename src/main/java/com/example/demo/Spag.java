@@ -36,6 +36,7 @@ public class Spag extends HelloServlet{
         notice.put("title","el good");
         request.setAttribute("notice",notice);
 
+
         //redirect 현재 작업한느 것과 관계 없이 새로운 요청 로드
         //forward 현재 작업하는 걸 이어갈 수 있게
         RequestDispatcher dispatcher = request.getRequestDispatcher("spag.jsp");//같은 디렉토리라서 경리 설정 안한 것
