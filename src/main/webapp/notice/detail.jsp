@@ -1,33 +1,5 @@
-<%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
-
-<%
-    int id = Integer.parseInt(request.getParameter("id"));
-
-    String url = "jdbc:mysql://localhost:3306/newlect";
-    String sql = "SELECT * FROM NOTICE WHERE ID=?";
-
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection(url,"root","7789295951r");
-    PreparedStatement st = con.prepareStatement(sql);
-    st.setInt(1,id);
-
-    ResultSet rs = st. executeQuery();
-    rs.next();
-
-    //models
-    String title = rs.getString("TITLE");
-    String date = rs.getString("REGDATE");
-    String writerID = rs.getString("WRITER_ID");
-    String hit = rs.getString("HIT");
-    String files = rs.getString("FILES");
-    String content = rs.getString("CONTENT");
-
-    rs.close();
-    st.close();
-    con.close();
-%>
 
 <!DOCTYPE html>
 <html>
@@ -178,24 +150,24 @@
 							<tbody>
 								<tr>
 									<th>제목</th>
-									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=title%></td>
+									<td class="text-align-left text-indent text-strong text-orange" colspan="3"><%=request.getAttribute("title")%></td>
 								</tr>
 								<tr>
 									<th>작성일</th>
-									<td class="text-align-left text-indent" colspan="3"><%=date%>	</td>
+									<td class="text-align-left text-indent" colspan="3"><%=request.getAttribute("date")%>	</td>
 								</tr>
 								<tr>
 									<th>작성자</th>
-									<td><%=writerID%></td>
+									<td><%=request.getAttribute("writeID")%></td>
 									<th>조회수</th>
-									<td><%=hit%></td>
+									<td><%=request.getAttribute("hit")%></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
-									<td colspan="3"><%=files%></td>
+									<td colspan="3"><%=request.getAttribute("files")%></td>
 								</tr>
 								<tr class="content">
-									<td colspan="4"> <%=content%></td>
+									<td colspan="4"> <%=request.getAttribute("content")%></td>
 								</tr>
 							</tbody>
 						</table>
