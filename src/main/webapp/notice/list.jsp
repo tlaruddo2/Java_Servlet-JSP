@@ -1,19 +1,8 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
+<%@ page import="com.example.demo.entity.Notice" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
 		 pageEncoding="UTF-8" %>
 
-<%
-	String url = "jdbc:mysql://localhost:3306/newlect";
-	String sql = "SELECT * FROM NOTICE";
-
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection(url,"root","7789295951r");
-	Statement st = con.createStatement();
-	ResultSet rs = st. executeQuery(sql);
-%>
 
 <!DOCTYPE html>
 <html>
@@ -187,26 +176,24 @@
 						</tr>
 					</thead>
 					<tbody>
-					<%if (rs.next()){
-						System.out.println("SQL has");
-					}else {
-						System.out.println("SQL not");
-					}%>
 
-					<%while (rs.next()){%>
+					<%
+						List<Notice> list = (List<Notice>) request.getAttribute("list");
+						for (Notice n : list){
+							pageContext.setAttribute("n",n);
+						}
+					%>
 
 					<tr>
-						<td><%=rs.getInt("ID")%></td>
-						<td class="title indent text-align-left"><a href="detail?id=<%= rs.getInt("ID")%>"><%= rs.getString("TITLE")%></a></td>
-						<td><%=rs.getString("WRITER_ID")%>></td>
-						<td>
-							<%=rs.getString("REGDATE")%>
-						</td>
-						<td><%=rs.getString("HIT")%></td>
+						<td>${n.id}</td>
+						<td class="title indent text-align-left"><a href="detail?id=${n.id}">${n.title}</a></td>
+						<td>${n.writerID}</td>
+						<td>${n.regdata}</td>
+						<td>${n.hit}</td>
 					</tr>
 
-					<%}%>
-					
+
+
 					</tbody>
 				</table>
 			</div>
@@ -280,9 +267,4 @@
     
     </html>
 
-<%
-	rs.close();
-	st.close();
-	con.close();
-%>
 		>
